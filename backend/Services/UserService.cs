@@ -11,7 +11,7 @@ namespace Users.Services
         private readonly IMongoCollection<User> _users;
 
         public UserService(IConfiguration config)
-        {
+        {   
             var client = new MongoClient(config.GetConnectionString("appUsers"));
             var database = client.GetDatabase("appUsers");
             _users = database.GetCollection<User>("Users");
