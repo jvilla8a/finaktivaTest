@@ -22,8 +22,8 @@ namespace Users.Controllers
             return _userService.Get();
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetUser")]
-        public ActionResult<User> Get(string id)
+        [HttpGet("{id}", Name = "GetUser")]
+        public ActionResult<User> Get(int id)
         {
             var user = _userService.Get(id);
 
@@ -43,8 +43,8 @@ namespace Users.Controllers
             return CreatedAtRoute("GetUser", new { id = user._id.ToString() }, user);
         }
 
-        [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, User userIn)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, User userIn)
         {
             var user = _userService.Get(id);
 
@@ -58,8 +58,8 @@ namespace Users.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:length(24)}")]
-        public IActionResult Delete(string id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             var user = _userService.Get(id);
 
@@ -68,7 +68,7 @@ namespace Users.Controllers
                 return NotFound();
             }
 
-            _userService.Remove(user._id);
+            _userService.Remove(user.ID);
 
             return NoContent();
         }

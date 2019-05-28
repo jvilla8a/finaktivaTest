@@ -22,9 +22,9 @@ namespace Users.Services
             return _users.Find(user => true).ToList();
         }
 
-        public User Get(string id)
+        public User Get(int id)
         {
-            return _users.Find<User>(user => user._id == id).FirstOrDefault();
+            return _users.Find<User>(user => user.ID == id).FirstOrDefault();
         }
 
         public User Create(User user)
@@ -33,19 +33,19 @@ namespace Users.Services
             return user;
         }
 
-        public void Update(string id, User userIn)
+        public void Update(int id, User userIn)
         {
-            _users.ReplaceOne(user => user._id == id, userIn);
+            _users.ReplaceOne(user => user.ID == id, userIn);
         }
 
         public void Remove(User userIn)
         {
-            _users.DeleteOne(user => user._id == userIn._id);
+            _users.DeleteOne(user => user.ID == userIn.ID);
         }
 
-        public void Remove(string id)
+        public void Remove(int id)
         {
-            _users.DeleteOne(user => user._id == id);
+            _users.DeleteOne(user => user.ID == id);
         }
     }
 }
