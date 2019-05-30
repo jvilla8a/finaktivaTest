@@ -7,24 +7,24 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material';
+import { MaterialModule } from './material-module';
+import { RegistryComponent } from './components/registry/registry.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    RegistryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
-  ],
-  exports: [
-    MatToolbarModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
