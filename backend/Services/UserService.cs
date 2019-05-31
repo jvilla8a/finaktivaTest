@@ -27,6 +27,11 @@ namespace Users.Services
             return _users.Find<User>(user => user.ID == id).FirstOrDefault();
         }
 
+        public User Get(string email)
+        {
+            return _users.Find<User>(user => user.Email == email).FirstOrDefault();
+        }
+
         public User Create(User user)
         {
             _users.InsertOne(user);

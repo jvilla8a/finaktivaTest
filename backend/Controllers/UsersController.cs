@@ -22,10 +22,23 @@ namespace Users.Controllers
             return _userService.Get();
         }
 
-        [HttpGet("{id}", Name = "GetUser")]
-        public ActionResult<User> Get(int id)
+        [HttpGet("[action]/{id}", Name = "GetUser")]
+        public ActionResult<User> GetById(int id)
         {
             var user = _userService.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
+        [HttpGet("[action]/{email}", Name = "GetUserByEmail")]
+        public ActionResult<User> GetByEmail(string email)
+        {
+            var user = _userService.Get(email);
 
             if (user == null)
             {
@@ -71,6 +84,17 @@ namespace Users.Controllers
             _userService.Remove(user.ID);
 
             return NoContent();
+        }
+
+        [HttpPost("[action]/{email}/{pass}")]
+        public ActionResult<User> Login (string email, string pass)
+        {
+            var user = _userService.Get(email);
+            if (user.Password == pass){
+                return user;
+            } else {
+                return NotFound();
+            }
         }
     }
 }
