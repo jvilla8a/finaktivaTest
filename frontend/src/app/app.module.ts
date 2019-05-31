@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material-module';
 import { RegistryComponent } from './components/registry/registry.component';
+import { EditComponent } from './components/edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    RegistryComponent
+    RegistryComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

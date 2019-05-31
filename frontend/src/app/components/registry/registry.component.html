@@ -5,19 +5,58 @@
       <mat-vertical-stepper #stepper>
         <mat-step>
           <ng-template matStepLabel>Fill out your name</ng-template>
-          <button mat-button matStepperNext>Next</button>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput type="text">
+          </mat-form-field>
+          <div class="actionContainer">
+            <button mat-button matStepperNext>Next</button>
+          </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Fill out your email</ng-template>
-          <button mat-button matStepperPrevious>Previous</button>
-          <button mat-button matStepperNext>Next</button>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email">
+          </mat-form-field>
+          <div class="actionContainer">
+            <button mat-button matStepperPrevious>Previous</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Fill out your password</ng-template>
-          <button mat-button matStepperPrevious>Previous</button>
-          <button mat-button matStepperNext>Next</button>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password">
+          </mat-form-field>
+          <div class="actionContainer">
+              <button mat-button matStepperPrevious>Previous</button>
+              <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Confirm password</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput type="password">
+            </mat-form-field>
+            <div class="actionContainer">
+              <button mat-button matStepperPrevious>Previous</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Finish</ng-template>
+          <div class="actionContainer">
+            <button mat-button matStepperPrevious>Previous</button>
+            <button mat-button>Save</button>
+          </div>
         </mat-step>
       </mat-vertical-stepper>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" routerLink="/">Back</button>
+    </mat-card-actions>
   </mat-card>
 </mat-grid-list>
