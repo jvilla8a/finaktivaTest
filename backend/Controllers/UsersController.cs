@@ -97,7 +97,7 @@ namespace Users.Controllers
               return Unauthorized();
 
             if(user.Email == _user.Email && user.Password == _user.Password)
-                return Ok();
+                return Ok(new { response = "Authorized" } );
             else
               return Unauthorized();
         }

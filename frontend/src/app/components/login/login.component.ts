@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as config from '../../../assets/config.json';
@@ -22,8 +23,11 @@ export class LoginComponent implements OnInit {
     Validators.email,
   ]);
 
-  constructor() { }
-  ngOnInit() { }
+  constructor( private router: Router ) { }
+  ngOnInit() { 
+    if (sessionStorage.status && sessionStorage.status == "logged")
+      this.router.navigate(["/dashboard"]);
+  }
 
   login(email: string, pass: string) {
     var URL = `${config.api.url}/login`;
@@ -42,7 +46,10 @@ export class LoginComponent implements OnInit {
       }
 
       response.json().then((data)=>{
-        console.log(`Login Data: ${data}`);
+        if (data.response == "Authorized"){
+          sessionStorage.setItem("status", "logged");
+          this.router.navigate(['/dashboard']);
+        }
       });
     }).catch((err)=>{ console.log(`Fetch Login Error: ${err}`); })
   }

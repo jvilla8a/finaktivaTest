@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'Finaktiva Test';
-
+  constructor ( private router: Router ) {}
   
+  logout () {
+    sessionStorage.removeItem("status");
+    this.router.navigate(["/logIn"]);
+  }
 }

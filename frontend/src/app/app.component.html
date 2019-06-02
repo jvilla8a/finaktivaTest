@@ -2,7 +2,7 @@
   <mat-toolbar-row>
     <span routerLink="/">Finaktiva Test</span>
     <span class="spacer"></span>
-    <button mat-button>Log Out</button>
+    <button #logOut mat-button (click)="logout()">Log Out</button>
   </mat-toolbar-row>
 </mat-toolbar>
 

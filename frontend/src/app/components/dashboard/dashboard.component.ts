@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { Router } from "@angular/router";
 
 export interface PeriodicElement {
   name: string;
@@ -28,9 +29,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router : Router ) { }
 
   ngOnInit() {
+    if (!sessionStorage.status || sessionStorage.status != "logged")
+      this.router.navigate(["/logIn"]);
   }
 
   displayedColumns: string[] = ['name', 'email', 'pass', 'id', 'actions'];
