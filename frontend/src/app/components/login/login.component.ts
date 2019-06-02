@@ -25,10 +25,17 @@ export class LoginComponent implements OnInit {
   constructor() { }
   ngOnInit() { }
 
-  login(name: string, pass: string) {
-    var URL = `${config.api.url}/${name}/${pass}`;
+  login(email: string, pass: string) {
+    var URL = `${config.api.url}/login`;
     
-    fetch(URL).then((response)=>{
+    fetch(URL, {
+      method: 'post',
+      body:   JSON.stringify({
+        Email:    email,
+        Password: pass
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then((response)=>{
       if (response.status !== 200) { 
         console.log(`Login Request status code: ${response.status}`);
         return;

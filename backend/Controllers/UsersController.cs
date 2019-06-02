@@ -44,7 +44,6 @@ namespace Users.Controllers
             {
                 return NotFound();
             }
-
             return user;
         }
 
@@ -86,15 +85,21 @@ namespace Users.Controllers
             return NoContent();
         }
 
-        [HttpPost("[action]/{email}/{pass}")]
-        public ActionResult<User> Login (string email, string pass)
-        {
-            var user = _userService.Get(email);
-            if (user.Password == pass){
-                return user;
-            } else {
-                return NotFound();
-            }
+        [HttpPost("login")]
+        public ActionResult<User> Login ([FromBody]User user)
+        {   
+            if  (user == null)
+                return BadRequest("Invalid client request");
+
+            var _user = _userService.Get(user.Email);
+
+            if(_user == null)
+              return Unauthorized();
+
+            if(user.Email == _user.Email && user.Password == _user.Password)
+                return Ok();
+            else
+              return Unauthorized();
         }
     }
 }
