@@ -5,17 +5,17 @@
       <form>
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input matInput type="text" [errorStateMatcher]="matcher" />
+          <input #userName matInput type="text" [errorStateMatcher]="matcher" />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput type="email" [errorStateMatcher]="matcher" />
+          <input #userEmail matInput type="email" [errorStateMatcher]="matcher" />
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
       <a mat-button color="primary" routerLink="/dashboard">Back</a>
-      <button mat-raised-button color="primary">Save</button>
+      <button mat-raised-button (click)="editUser(userName.value, userEmail.value)" color="primary">Save</button>
     </mat-card-actions>
   </mat-card>
 </mat-grid-list>

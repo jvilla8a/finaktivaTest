@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AppComponent } from '../../app.component';
 import * as config from '../../../assets/config.json';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -51,6 +52,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         }
       });
-    }).catch((err)=>{ console.log(`Fetch Login Error: ${err}`); })
+    }).catch((err)=>{ console.log(`Fetch Login Error: ${err}`); });
   }
 }

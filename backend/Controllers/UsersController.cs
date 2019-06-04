@@ -23,9 +23,9 @@ namespace Users.Controllers
         }
 
         [HttpGet("[action]/{id}", Name = "GetUser")]
-        public ActionResult<User> GetById(int id)
+        public ActionResult<User> GetById(string id)
         {
-            var user = _userService.Get(id);
+            var user = _userService.GetByID(id);
 
             if (user == null)
             {
@@ -38,7 +38,7 @@ namespace Users.Controllers
         [HttpGet("[action]/{email}", Name = "GetUserByEmail")]
         public ActionResult<User> GetByEmail(string email)
         {
-            var user = _userService.Get(email);
+            var user = _userService.GetByEmail(email);
 
             if (user == null)
             {
@@ -56,33 +56,35 @@ namespace Users.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, User userIn)
+        public IActionResult Update(string id, User userIn)
         {
-            var user = _userService.Get(id);
+            var user = _userService.GetByID(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            _userService.Update(id, userIn);
+            user.Email = userIn.Email;
+            user.Name  = userIn.Name;
+            _userService.Update(user._id, user);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            var user = _userService.Get(id);
+            var user = _userService.GetByID(id);
 
             if (user == null)
-            {
-                return NotFound();
-            }
+                return NoContent();
 
-            _userService.Remove(user.ID);
-
-            return NoContent();
+            if(user._id == id){
+                _userService.Remove(user._id);
+                return Ok(new { deleteStatus = "Successful" });
+            } else
+                return NoContent();
         }
 
         [HttpPost("login")]
@@ -91,15 +93,15 @@ namespace Users.Controllers
             if  (user == null)
                 return BadRequest("Invalid client request");
 
-            var _user = _userService.Get(user.Email);
+            var _user = _userService.GetByEmail(user.Email);
 
             if(_user == null)
-              return Unauthorized();
+              return NoContent();
 
             if(user.Email == _user.Email && user.Password == _user.Password)
                 return Ok(new { response = "Authorized" } );
             else
-              return Unauthorized();
+              return NoContent();
         }
     }
 }

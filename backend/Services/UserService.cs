@@ -3,6 +3,8 @@ using System.Linq;
 using Users.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using MongoDB.Bson;
+using System;
 
 namespace Users.Services
 {
@@ -22,12 +24,12 @@ namespace Users.Services
             return _users.Find(user => true).ToList();
         }
 
-        public User Get(int id)
+        public User GetByID(string id)
         {
-            return _users.Find<User>(user => user.ID == id).FirstOrDefault();
+            return _users.Find<User>(user => user._id == id).FirstOrDefault();
         }
 
-        public User Get(string email)
+        public User GetByEmail(string email)
         {
             return _users.Find<User>(user => user.Email == email).FirstOrDefault();
         }
@@ -35,12 +37,13 @@ namespace Users.Services
         public User Create(User user)
         {
             _users.InsertOne(user);
+
             return user;
         }
 
-        public void Update(int id, User userIn)
+        public void Update(string id, User userIn)
         {
-            _users.ReplaceOne(user => user.ID == id, userIn);
+            _users.ReplaceOne(user => user._id == id, userIn);
         }
 
         public void Remove(User userIn)
@@ -48,9 +51,9 @@ namespace Users.Services
             _users.DeleteOne(user => user.ID == userIn.ID);
         }
 
-        public void Remove(int id)
+        public void Remove(string id)
         {
-            _users.DeleteOne(user => user.ID == id);
+            _users.DeleteOne(user => user._id == id);
         }
     }
 }

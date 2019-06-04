@@ -9,8 +9,11 @@ import { Router } from "@angular/router";
 export class AppComponent {
   constructor ( private router: Router ) {}
   
+  session : boolean = sessionStorage.status && sessionStorage.status == "logged" ? true : false;
+
   logout () {
     sessionStorage.removeItem("status");
     this.router.navigate(["/logIn"]);
+    this.session = false
   }
 }

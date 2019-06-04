@@ -7,7 +7,7 @@
           <ng-template matStepLabel>Fill out your name</ng-template>
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input matInput type="text">
+            <input #userName matInput type="text">
           </mat-form-field>
           <div class="actionContainer">
             <button mat-button matStepperNext>Next</button>
@@ -17,7 +17,7 @@
           <ng-template matStepLabel>Fill out your email</ng-template>
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput type="email">
+            <input #userEmail matInput type="email">
           </mat-form-field>
           <div class="actionContainer">
             <button mat-button matStepperPrevious>Previous</button>
@@ -28,7 +28,7 @@
           <ng-template matStepLabel>Fill out your password</ng-template>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput type="password">
+            <input #userPass matInput type="password">
           </mat-form-field>
           <div class="actionContainer">
               <button mat-button matStepperPrevious>Previous</button>
@@ -39,7 +39,7 @@
             <ng-template matStepLabel>Confirm password</ng-template>
             <mat-form-field appearance="outline">
               <mat-label>Password</mat-label>
-              <input matInput type="password">
+              <input #userConfirm matInput type="password">
             </mat-form-field>
             <div class="actionContainer">
               <button mat-button matStepperPrevious>Previous</button>
@@ -50,7 +50,7 @@
           <ng-template matStepLabel>Finish</ng-template>
           <div class="actionContainer">
             <button mat-button matStepperPrevious>Previous</button>
-            <button mat-button>Save</button>
+            <button mat-button (click)="createUser(userName.value, userEmail.value, userPass.value, userConfirm.value)">Save</button>
           </div>
         </mat-step>
       </mat-vertical-stepper>
