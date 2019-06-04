@@ -1,21 +1,30 @@
 <mat-grid-list cols="1" rowHeight="100%" class="editContainer">
   <mat-card class="card">
-    <mat-card-title>Editing - {{id}}</mat-card-title>
+    <mat-card-title>Editing - <span>{{id}}</span></mat-card-title>
     <mat-card-content>
       <form>
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
-          <input #userName matInput type="text" [errorStateMatcher]="matcher" />
+          <input #userName matInput type="text" [formControl]="nameFormControl" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="nameFormControl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input #userEmail matInput type="email" [errorStateMatcher]="matcher" />
+          <input #userEmail matInput type="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
       <a mat-button color="primary" routerLink="/dashboard">Back</a>
-      <button mat-raised-button (click)="editUser(userName.value, userEmail.value)" color="primary">Save</button>
+      <button [disabled]="!userName.value || !userEmail.value" mat-raised-button (click)="editUser(userName.value, userEmail.value)" color="primary">Save</button>
     </mat-card-actions>
   </mat-card>
 </mat-grid-list>

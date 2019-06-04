@@ -5,8 +5,7 @@
       <form>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <!-- <input matInput type="email" placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" /> -->
-          <input #userName matInput type="email" [errorStateMatcher]="matcher" />
+          <input #userEmail matInput type="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" />
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -16,13 +15,16 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input #userPass matInput type="password" [errorStateMatcher]="matcher" />
+          <input #userPass matInput type="password" [formControl]="passFormControl" [errorStateMatcher]="matcher" />
+          <mat-error *ngIf="passFormControl.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
       <a mat-button color="primary" routerLink="/singUp">Sing Up</a>
-      <button mat-raised-button color="primary" (click)="login(userName.value, userPass.value)">Sing In</button>
+      <button [disabled]="!userEmail.value || !userPass.value" mat-raised-button color="primary" (click)="login(userName.value, userPass.value)">Sing In</button>
     </mat-card-actions>
   </mat-card>
 </mat-grid-list>

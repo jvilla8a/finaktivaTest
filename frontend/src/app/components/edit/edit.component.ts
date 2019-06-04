@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import * as config from '../../../assets/config.json';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-edit',
@@ -8,6 +17,13 @@ import * as config from '../../../assets/config.json';
   styleUrls: ['./edit.component.less']
 })
 export class EditComponent implements OnInit {
+  matcher = new MyErrorStateMatcher();
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  nameFormControl = new FormControl('', Validators.required);
+
   URL : string = `${config.api.url}`;
   constructor( private route : ActivatedRoute, private router : Router ) { }
   id = this.route.snapshot.paramMap.get('id');
@@ -28,9 +44,7 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      // response.json().then((data)=>{
-        this.router.navigate(['/dashboard']);
-      // });
-    }).catch((err)=>{ console.log(`Fetch Registry Error: ${err}`); });
+      this.router.navigate(['/dashboard']);
+    }).catch((err)=>{ console.log(`Fetch Update Error: ${err}`); });
   }
 }

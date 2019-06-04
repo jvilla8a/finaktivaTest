@@ -2,55 +2,70 @@
   <mat-card class="card">
     <mat-card-title color="primary">Sing Up</mat-card-title>
     <mat-card-content>
-      <mat-vertical-stepper #stepper>
-        <mat-step>
-          <ng-template matStepLabel>Fill out your name</ng-template>
-          <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input #userName matInput type="text">
-          </mat-form-field>
-          <div class="actionContainer">
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Fill out your email</ng-template>
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input #userEmail matInput type="email">
-          </mat-form-field>
-          <div class="actionContainer">
-            <button mat-button matStepperPrevious>Previous</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Fill out your password</ng-template>
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input #userPass matInput type="password">
-          </mat-form-field>
-          <div class="actionContainer">
-              <button mat-button matStepperPrevious>Previous</button>
-              <button mat-button matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <mat-step>
-            <ng-template matStepLabel>Confirm password</ng-template>
+      <mat-vertical-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Fill out your name</ng-template>
             <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input #userConfirm matInput type="password">
+              <mat-label>Name</mat-label>
+              <input #userName matInput type="text" formControlName="firstControl" [errorStateMatcher]="matcher" required>
+              <!-- <mat-hint>Errors appear instantly!</mat-hint>
+              <mat-error *ngIf="firstFormGroup.hasError('minlength')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error> -->
+            </mat-form-field>
+            <div class="actionContainer">
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Fill out your email</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input #userEmail matInput type="email" formControlName="secondControl" required>
             </mat-form-field>
             <div class="actionContainer">
               <button mat-button matStepperPrevious>Previous</button>
               <button mat-button matStepperNext>Next</button>
             </div>
-          </mat-step>
-        <mat-step>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Fill out your password</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input #userPass matInput type="password" formControlName="thirdControl" required>
+            </mat-form-field>
+            <div class="actionContainer">
+                <button mat-button matStepperPrevious>Previous</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="fourthFormGroup">
+          <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel>Confirm password</ng-template>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input #userConfirm matInput type="password" formControlName="fourthControl" required>
+            </mat-form-field>
+            <div class="actionContainer">
+              <button mat-button matStepperPrevious>Previous</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="fifthFormGroup">
           <ng-template matStepLabel>Finish</ng-template>
           <div class="actionContainer">
             <button mat-button matStepperPrevious>Previous</button>
-            <button mat-button (click)="createUser(userName.value, userEmail.value, userPass.value, userConfirm.value)">Save</button>
+            <button mat-button (click)="createUser(userName.value, userEmail.value, userPass.value, userConfirm.value)" color="primary">Save</button>
           </div>
         </mat-step>
       </mat-vertical-stepper>
